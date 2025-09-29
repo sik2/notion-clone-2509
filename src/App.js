@@ -1,5 +1,5 @@
 import EditorPage from '../components/EditorPage.js'
-import SidebarPage from '../components/SidebarPage.js'
+import SidebarPage from '../components/sidebar/SidebarPage.js'
 
 export default function App({ $target }) {
     const initalState = []
