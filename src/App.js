@@ -27,6 +27,11 @@ export default function App({ $target }) {
         },
     ]
 
+    const editorDummyData = {
+        title: '노션 만들자',
+        content: '노션 만들기~',
+    }
+
     const $listContainer = document.createElement('div')
     const $editorContainer = document.createElement('div')
 
@@ -37,5 +42,8 @@ export default function App({ $target }) {
         $target: $listContainer,
         initalState: dummyData,
     })
-    const editorPage = new EditorPage({ $target: $editorContainer })
+    const editorPage = new EditorPage({
+        $target: $editorContainer,
+        initalState: editorDummyData,
+    })
 }
