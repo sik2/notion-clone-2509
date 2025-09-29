@@ -12,16 +12,28 @@ export default function SidebarList({ $target, initalState }) {
                 str += `
                     <li class="dataList">
                         ${data[key].title}
-                        <button class="addBtn">➕</button>
-                        <button class="delBtn">🗑️</button>
+                        <button
+                            class="addBtn" 
+                            data-id=${data[key].id}
+                        >➕</button>
+                        <button 
+                            class="addBtn" 
+                            data-id=${data[key].id}
+                        >🗑️</button>
                         <ul>${this.createTreeView(data[key].documents)}</ul>
                     </li>`
             } else {
                 str += `
                     <li class="dataList">
                         ${data[key].title}
-                        <button class="addBtn">➕</button>
-                        <button class="delBtn">🗑️</button>
+                        <button
+                            class="addBtn" 
+                            data-id=${data[key].id}
+                        >➕</button>
+                        <button 
+                            class="addBtn" 
+                            data-id=${data[key].id}
+                        >🗑️</button>
                         <ul>${this.createTreeView(data[key].documents)}</ul>
                     </li>`
             }
@@ -38,7 +50,10 @@ export default function SidebarList({ $target, initalState }) {
                         (document) =>
                             `<li class="dataList">
                                 ${document.title}
-                                <button class="addBtn">➕</button>
+                                <button 
+                                    class="addBtn" 
+                                    data-id=${document.id}
+                                >➕</button>
                                 <button 
                                     class="delBtn" 
                                     data-id=${document.id}
@@ -75,10 +90,22 @@ export default function SidebarList({ $target, initalState }) {
         this.setState()
     }
 
-    $list.addEventListener('click', (e) => {
-        const delBtn = e.target.closest('.delbtn')
+    const onCreate = async (id) => {
+        await request('', {
+            method: 'POST',
+            body: JSON.stringify({
+                title: '제목없음',
+                parent: id,
+            }),
+        })
+        this.setState()
+    }
 
+    $list.addEventListener('click', (e) => {
+        const className = e.target.className
         const id = delBtn.dataset.id
-        onDelete(id)
+
+        if (className == 'delBtn') onDelete(id)
+        if (className == 'addBtn') onCreate(id)
     })
 }
