@@ -40,7 +40,10 @@ export default function SidebarPage({ $target, initalState }) {
                         `<li class="dataList">
                             ${document.title}
                             <button class="addBtn">➕</button>
-                            <button class="delBtn">🗑️</button>
+                            <button 
+                                class="delBtn" 
+                                data-id=${document.id}
+                            >🗑️</button>
                         </li>
                         ${
                             document.documents.length > 0
@@ -63,8 +66,22 @@ export default function SidebarPage({ $target, initalState }) {
     const $newBtn = new NewBtn({ $target: $page })
 
     this.setState = async () => {
-        const documentList = await request()
+        const documentList = await request('')
         this.state = documentList
         this.render()
     }
+
+    const onDelete = async () => {
+        await request(`/${id}`, {
+            method: 'DELETE',
+        })
+        this.setState()
+    }
+
+    $page.addEventListener('click', (e) => {
+        const delBtn = e.target.closest('.delbtn')
+
+        const id = delBtn.dataset.id
+        onDelete(id)
+    })
 }
