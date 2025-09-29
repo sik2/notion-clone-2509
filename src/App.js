@@ -2,30 +2,7 @@ import EditorPage from '../components/EditorPage.js'
 import SidebarPage from '../components/SidebarPage.js'
 
 export default function App({ $target }) {
-    const dummyData = [
-        {
-            id: 1, // Document id
-            title: '노션을 만들자', // Document title
-            documents: [
-                {
-                    id: 2,
-                    title: '블라블라',
-                    documents: [
-                        {
-                            id: 3,
-                            title: '함냐함냐',
-                            documents: [],
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            id: 4,
-            title: 'hello!',
-            documents: [],
-        },
-    ]
+    const initalState = []
 
     const editorDummyData = {
         title: '노션 만들자',
@@ -40,7 +17,7 @@ export default function App({ $target }) {
 
     const sidebarPage = new SidebarPage({
         $target: $listContainer,
-        initalState: dummyData,
+        initalState: initalState,
     })
     const editorPage = new EditorPage({
         $target: $editorContainer,

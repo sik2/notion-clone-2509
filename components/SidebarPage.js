@@ -1,3 +1,4 @@
+import { request } from '../util/api.js'
 import NewBtn from './NewBtn.js'
 
 export default function SidebarPage({ $target, initalState }) {
@@ -30,7 +31,8 @@ export default function SidebarPage({ $target, initalState }) {
         return str
     }
 
-    $page.innerHTML = `
+    this.render = () => {
+        $page.innerHTML = `
         <ul>
             ${this.state
                 .map(
@@ -52,8 +54,17 @@ export default function SidebarPage({ $target, initalState }) {
                 .join('')}
         </ul>
     `
+    }
+
+    this.render()
 
     $target.appendChild($page)
 
     const $newBtn = new NewBtn({ $target: $page })
+
+    this.setState = async () => {
+        const documentList = await request()
+        this.state = documentList
+        this.render()
+    }
 }
