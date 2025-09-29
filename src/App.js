@@ -1,11 +1,10 @@
-import EditorPage from '../components/EditorPage.js'
-import SidebarPage from '../components/sidebar/SidebarPage.js'
+import EditorPage from '../components/editor/EditorPage'
+import SidebarPage from '../components/sidebar/SidebarPage'
 
 export default function App({ $target }) {
-    const initalState = []
-
     const editorDummyData = {
-        title: '노션 만들자',
+        parent: 'new',
+        title: '노션을 만들자',
         content: '노션 만들기~',
     }
 
@@ -15,12 +14,20 @@ export default function App({ $target }) {
     $target.appendChild($listContainer)
     $target.appendChild($editorContainer)
 
-    const sidebarPage = new SidebarPage({
-        $target: $listContainer,
-        initalState: initalState,
-    })
+    const initalState = []
+
     const editorPage = new EditorPage({
         $target: $editorContainer,
-        initalState: editorDummyData,
+        initialState: editorDummyData,
     })
+    const onEditing = (id) => {
+        console.log(id)
+    }
+    const sidebarPage = new SidebarPage({
+        $target: $listContainer,
+        initalState,
+        onEditing,
+    })
+
+    sidebarPage.setState()
 }

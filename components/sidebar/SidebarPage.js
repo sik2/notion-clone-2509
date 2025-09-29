@@ -1,13 +1,17 @@
-import { request } from '../../util/api.js'
+import { request } from '../../utils/api.js'
 import NewBtn from './NewBtn.js'
-import SidebarList from './SideBarList.js'
+import SideBarList from './SideBarList.js'
 
-export default function SidebarPage({ $target, initalState }) {
+export default function SidebarPage({ $target, initalState, onEditing }) {
     const $page = document.createElement('div')
     $target.appendChild($page)
 
     $page.classList.add('listContainer')
-    const $sidebarList = new SidebarList({ $target: $page, initalState })
+    const $sidebarList = new SideBarList({
+        $target: $page,
+        initalState,
+        onEditing,
+    })
 
     this.setState = () => {
         $sidebarList.setState()
@@ -17,7 +21,7 @@ export default function SidebarPage({ $target, initalState }) {
         request('', {
             method: 'POST',
             body: JSON.stringify({
-                title: '문서 제목',
+                title: '문서 제목2',
                 // parent가 null이면 루트 Document가 됩니다.
                 // 특정 Document에 속하게 하려면 parent에
                 // 해당 Document id를 넣으세요.
@@ -27,5 +31,5 @@ export default function SidebarPage({ $target, initalState }) {
         $sidebarList.setState()
     }
 
-    const $newBtn = new NewBtn({ $target: $page, onCreate })
+    const $newBtn = new NewBtn({ $target: $page, onCreate, onEditing })
 }
